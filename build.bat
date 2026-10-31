@@ -20,7 +20,7 @@ REM Assets: src\assets (PNG sprite sheets, asm tables) -> src\gen\*, target\asse
 python tools\build_assets.py
 if errorlevel 1 exit /b 1
 
-.\64tass.exe --cbm-prg -C -I src src\main.asm -l target\%PROJECT%.lbl -L target\%PROJECT%.lst -o target\%PROJECT%
+.\64tass.exe --cbm-prg -C -I src src\main.asm -l target\%PROJECT%.lbl -o target\%PROJECT%
 if errorlevel 1 exit /b 1
 
 cd target
@@ -36,5 +36,10 @@ for /f %%f in (assets\files.txt) do (
     if errorlevel 1 (echo failed writing %%f & cd .. & exit /b 1)
 )
 cd ..
+
+REM keep only the D81 and the labels (the Xemu test harness reads them)
+del target\%PROJECT% 2>nul
+rmdir /s /q target\assets 2>nul
+rmdir /s /q target\userprofile 2>nul
 
 echo Built target\%PROJECT%.d81
