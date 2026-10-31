@@ -1,7 +1,7 @@
+target/*
+!target/archon65.d81
 *.lbl
 *.lst
-*.d81
-target/
 src/gen/
 __pycache__/
 resources/
