@@ -282,24 +282,7 @@ def write_sprites(static, sets, lookup, assets, gen):
         for i in range(0, len(vals), 16):
             lines.append('        .byte ' + ','.join('%d' % v for v in vals[i:i + 16]))
     open(os.path.join(gen, 'sprites.asm'), 'w').write('\n'.join(lines) + '\n')
-    preview([rows for _, rows in static], os.path.join(os.path.dirname(assets), 'sprites_preview.png'))
-    preview([r for s in sets[:20] for r in s], os.path.join(os.path.dirname(assets), 'combat_preview.png'),
-            cols=COMBAT_SET_SPRITES)
     return parts, combat
-
-
-def preview(sprites, path, cols=16):
-    im = Image.new('RGB', (cols * (SPR_W + 2) * 3, ((len(sprites) + cols - 1) // cols) * (SPR_H + 2) * 3),
-                   (60, 60, 70))
-    for n, rows in enumerate(sprites):
-        ox, oy = (n % cols) * (SPR_W + 2), (n // cols) * (SPR_H + 2)
-        for y in range(SPR_H):
-            for x in range(SPR_W):
-                if rows[y][x] is not None:
-                    for i in range(3):
-                        for j in range(3):
-                            im.putpixel(((ox + x) * 3 + i, (oy + y) * 3 + j), rows[y][x])
-    im.save(path)
 
 
 # ---- spell effects (hardware sprites) -------------------------------------------------
