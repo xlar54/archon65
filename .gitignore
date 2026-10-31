@@ -1,0 +1,11 @@
+*.lbl
+*.lst
+*.d81
+target/
+src/gen/
+__pycache__/
+resources/
+examples/
+docs/
+.claude/
+TODO.md
